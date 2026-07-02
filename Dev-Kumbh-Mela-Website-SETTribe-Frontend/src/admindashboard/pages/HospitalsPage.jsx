@@ -197,7 +197,7 @@ const HospitalsPage = () => {
     useEffect(() => {
         const scrollContainer = document.querySelector('.admin-content');
         if (scrollContainer) {
-            scrollContainer.scrollTo({ top: 0, behavior: 'instant' });
+            scrollContainer.scrollTop = 0;
         }
     }, [activeTab]);
 

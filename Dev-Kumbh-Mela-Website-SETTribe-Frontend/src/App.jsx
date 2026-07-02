@@ -27,10 +27,11 @@ function App() {
 
   // Ensure page scrolls to top on route change
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    window.scrollTo(0, 0);
     const adminContent = document.querySelector('.admin-content');
     if (adminContent) {
-      adminContent.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      adminContent.scrollTop = 0;
+      adminContent.scrollLeft = 0;
     }
   }, [pathname]);
 
