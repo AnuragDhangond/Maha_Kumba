@@ -29,6 +29,30 @@
     if (typeof global === 'undefined') {
       window.global = window;
     }
+    // Global crash inspector for mobile testing
+    window.onerror = function(message, source, lineno, colno, error) {
+      const div = document.createElement('div');
+      div.style.position = 'fixed';
+      div.style.top = '0';
+      div.style.left = '0';
+      div.style.width = '100vw';
+      div.style.height = '100vh';
+      div.style.backgroundColor = '#fff0f0';
+      div.style.color = '#b71c1c';
+      div.style.padding = '20px';
+      div.style.boxSizing = 'border-box';
+      div.style.zIndex = '9999999';
+      div.style.fontSize = '14px';
+      div.style.overflow = 'auto';
+      div.style.fontFamily = 'monospace';
+      div.innerHTML = '<h2 style="margin-top:0;">Mobile Diagnostics: React Crashed</h2>' + 
+                      '<p><b>Message:</b> ' + message + '</p>' +
+                      '<p><b>File:</b> ' + source + '</p>' +
+                      '<p><b>Line/Col:</b> ' + lineno + ':' + colno + '</p>' +
+                      '<p><b>Stack trace:</b><br><pre style="white-space:pre-wrap; font-size:12px;">' + (error && error.stack ? error.stack : 'No stack available') + '</pre></p>';
+      document.body.appendChild(div);
+      return false;
+    };
   </script>
 </head>
 
