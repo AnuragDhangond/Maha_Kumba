@@ -18,6 +18,10 @@ public class KumbhBackendApplication {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
         dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 
+        System.out.println("DEBUG STARTUP: System.getenv(\"DB_URL\"): " + System.getenv("DB_URL"));
+        System.out.println("DEBUG STARTUP: System.getenv(\"DB_USERNAME\"): " + System.getenv("DB_USERNAME"));
+        System.out.println("DEBUG STARTUP: System.getenv(\"SPRING_PROFILES_ACTIVE\"): " + System.getenv("SPRING_PROFILES_ACTIVE"));
+
         // Check if DATABASE_URL is set (from Render or standard environments)
         String databaseUrl = System.getenv("DATABASE_URL");
         if (databaseUrl == null) {
