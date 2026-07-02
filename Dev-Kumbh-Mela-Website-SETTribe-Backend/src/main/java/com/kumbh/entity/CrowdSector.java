@@ -14,7 +14,8 @@ public class CrowdSector {
     private Long id;
 
     @JsonIgnore
-    @Column(nullable = false, columnDefinition = "POLYGON")
+    @Convert(converter = PolygonConverter.class)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private Polygon boundary;
 
     @com.fasterxml.jackson.annotation.JsonProperty("boundary")
