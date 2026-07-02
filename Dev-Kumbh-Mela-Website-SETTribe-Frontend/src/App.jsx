@@ -23,7 +23,7 @@ function App() {
 
   // Global activity tracking
   useActivityTracker();
-  // useResponsiveAdminTables();
+  useResponsiveAdminTables();
 
   // Ensure page scrolls to top on route change
   useEffect(() => {
@@ -53,7 +53,7 @@ function App() {
   return (
     <>
       <AppRouter />
-      {/* <KumbhCompanion /> */}
+      <KumbhCompanion />
     </>
   );
 }

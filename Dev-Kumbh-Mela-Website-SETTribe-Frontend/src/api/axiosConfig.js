@@ -66,11 +66,17 @@ axiosInstance.interceptors.response.use(
         const requestUrl = originalRequest?.url || '';
 
         const isAuthError = error.response && (error.response.status === 401 || error.response.status === 403);
-        const isAuthEndpoint = ['/users/login', '/users/refresh', '/users/logout'].some((path) =>
+        const isAuthEndpoint = ['/users/login', '/users/refresh', '/users/logout', '/users/me'].some((path) =>
             requestUrl.includes(path)
         );
 
-        if (isAuthError && !originalRequest?._retry && !isAuthEndpoint) {
+        // CRITICAL FIX: If there is no stored token, skip the refresh entirely.
+        // Without this check, a guest user (no token) causes an infinite loop:
+        // 401 -> try refresh -> refresh 401 -> auth-failed event -> re-render -> 401 -> ...
+        // This crashes iOS Safari with RangeError: Maximum call stack size exceeded.
+        const hasStoredToken = !!localStorage.getItem('jwtToken');
+
+        if (isAuthError && !originalRequest?._retry && !isAuthEndpoint && hasStoredToken) {
             originalRequest._retry = true;
 
             try {
