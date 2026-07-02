@@ -25,14 +25,36 @@ public class KumbhBackendApplication {
             Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
             dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 
-            // Self-heal database environment variables by cleaning newlines and whitespace
-            cleanAndPromoteEnvVar("DB_URL");
-            cleanAndPromoteEnvVar("DB_USERNAME");
-            cleanAndPromoteEnvVar("DB_USER");
-            cleanAndPromoteEnvVar("DB_PASSWORD");
-            cleanAndPromoteEnvVar("DB_DRIVER");
-            cleanAndPromoteEnvVar("DB_DIALECT");
-            cleanAndPromoteEnvVar("SPRING_PROFILES_ACTIVE");
+            // Extract and clean raw environment variables
+            String dbUrl = cleanEnvVar("DB_URL");
+            String dbUser = cleanEnvVar("DB_USERNAME");
+            if (dbUser == null) {
+                dbUser = cleanEnvVar("DB_USER");
+            }
+            String dbPassword = cleanEnvVar("DB_PASSWORD");
+            String activeProfiles = cleanEnvVar("SPRING_PROFILES_ACTIVE");
+
+            // Direct Spring Boot configuration injection at JVM level
+            if (dbUrl != null) {
+                System.setProperty("spring.datasource.url", dbUrl);
+                System.out.println("JVM INJECTION: spring.datasource.url = " + dbUrl);
+            }
+            if (dbUser != null) {
+                System.setProperty("spring.datasource.username", dbUser);
+                System.out.println("JVM INJECTION: spring.datasource.username = " + dbUser);
+            }
+            if (dbPassword != null) {
+                System.setProperty("spring.datasource.password", dbPassword);
+            }
+            
+            // Hardcode standard production values directly to guarantee resolution
+            System.setProperty("spring.datasource.driver-class-name", "com.mysql.cj.jdbc.Driver");
+            System.setProperty("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+
+            if (activeProfiles != null) {
+                System.setProperty("spring.profiles.active", activeProfiles);
+                System.out.println("JVM INJECTION: spring.profiles.active = " + activeProfiles);
+            }
 
             // Class loading diagnostic check
             try {
@@ -59,19 +81,19 @@ public class KumbhBackendApplication {
                         int port = uri.getPort();
                         String portStr = (port == -1) ? "" : ":" + port;
                         String query = uri.getQuery();
-                        String dbUrl = "jdbc:postgresql://" + uri.getHost() + portStr + uri.getPath();
+                        String dbUrlPg = "jdbc:postgresql://" + uri.getHost() + portStr + uri.getPath();
                         if (query != null && !query.isEmpty()) {
-                            dbUrl += "?" + query;
+                            dbUrlPg += "?" + query;
                         } else {
-                            dbUrl += "?sslmode=require";
+                            dbUrlPg += "?sslmode=require";
                         }
 
-                        System.setProperty("DB_URL", dbUrl);
-                        System.setProperty("DB_USER", username);
-                        System.setProperty("DB_PASSWORD", password);
-                        System.setProperty("DB_DRIVER", "org.postgresql.Driver");
-                        System.setProperty("DB_DIALECT", "org.hibernate.dialect.PostgreSQLDialect");
-                        System.out.println("Auto-configured PostgreSQL from DATABASE_URL: " + dbUrl);
+                        System.setProperty("spring.datasource.url", dbUrlPg);
+                        System.setProperty("spring.datasource.username", username);
+                        System.setProperty("spring.datasource.password", password);
+                        System.setProperty("spring.datasource.driver-class-name", "org.postgresql.Driver");
+                        System.setProperty("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+                        System.out.println("Auto-configured PostgreSQL from DATABASE_URL: " + dbUrlPg);
                     }
                 } catch (Exception e) {
                     System.err.println("Failed to parse DATABASE_URL: " + e.getMessage());
@@ -87,12 +109,11 @@ public class KumbhBackendApplication {
         }
     }
 
-    private static void cleanAndPromoteEnvVar(String key) {
+    private static String cleanEnvVar(String key) {
         String val = System.getenv(key);
         if (val != null) {
             val = val.replace("\n", "").replace("\r", "").trim();
-            System.setProperty(key, val);
-            System.out.println("DEBUG PROMOTED CLEANED " + key + ": " + val);
         }
+        return val;
     }
 }
