@@ -34,6 +34,14 @@ public class KumbhBackendApplication {
             cleanAndPromoteEnvVar("DB_DIALECT");
             cleanAndPromoteEnvVar("SPRING_PROFILES_ACTIVE");
 
+            // Class loading diagnostic check
+            try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                System.out.println("DEBUG CLASS LOADING: com.mysql.cj.jdbc.Driver is present and loadable!");
+            } catch (ClassNotFoundException e) {
+                System.err.println("DEBUG CLASS LOADING ERROR: com.mysql.cj.jdbc.Driver NOT found in classpath!");
+            }
+
             // Check if DATABASE_URL is set (from Render or standard environments)
             String databaseUrl = System.getenv("DATABASE_URL");
             if (databaseUrl == null) {
