@@ -1,0 +1,282 @@
+/* ================================================================
+   VendorDashboard.css — Mahakumbh Vendor Panel
+   Design: Deep saffron/gold dark-accent, premium marketplace feel
+   ================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Root ─────────────────────────────────────────────────────── */
+.vd-root {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background: #0f0f13;
+  color: #e8e3dc;
+  padding: 24px 32px 60px;
+}
+
+/* ── Loading ──────────────────────────────────────────────────── */
+.vd-loading {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: 60vh; gap: 16px; color: #b08d57;
+}
+.vd-spinner {
+  width: 44px; height: 44px;
+  border: 4px solid #2a2a35;
+  border-top-color: #e8910a;
+  border-radius: 50%;
+  animation: vd-spin 0.8s linear infinite;
+}
+@keyframes vd-spin { to { transform: rotate(360deg); } }
+
+/* ── Register Wrap ────────────────────────────────────────────── */
+.vd-register-wrap {
+  min-height: 100vh; background: #0f0f13;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 40px 20px;
+}
+.vd-register-card {
+  background: #17171f;
+  border: 1px solid #2a2a35;
+  border-radius: 20px;
+  max-width: 860px; width: 100%;
+  padding: 40px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+}
+.vd-register-header { margin-bottom: 32px; text-align: center; }
+.vd-register-header h1 { font-size: 2rem; font-weight: 800; color: #e8910a; margin-bottom: 8px; }
+.vd-register-header p  { color: #8a8a9a; font-size: 0.95rem; }
+
+/* ── Header ───────────────────────────────────────────────────── */
+.vd-header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 16px; margin-bottom: 20px;
+  background: linear-gradient(135deg, #17171f 0%, #1e1a2e 100%);
+  border: 1px solid #2a2a35; border-radius: 16px; padding: 24px 28px;
+}
+.vd-shop-identity { display: flex; align-items: center; gap: 16px; }
+.vd-shop-logo { width: 64px; height: 64px; border-radius: 12px; object-fit: cover;
+  border: 2px solid #e8910a; }
+.vd-shop-logo-placeholder { width: 64px; height: 64px; border-radius: 12px;
+  background: #2a2a35; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; border: 2px solid #3a3a45; }
+.vd-shop-name { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 0 0 4px; }
+.vd-shop-meta { font-size: 0.9rem; color: #8a8a9a; margin: 0; }
+.vd-verify-badge { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── Badges ───────────────────────────────────────────────────── */
+.vd-badge {
+  display: inline-block; padding: 4px 12px;
+  border-radius: 20px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+}
+.badge-active    { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+.badge-pending   { background: rgba(251,191,36,0.15); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+.badge-blocked   { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+.badge-delivered { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+/* ── Verification Banner ──────────────────────────────────────── */
+.vd-verification-banner {
+  background: linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(232,145,10,0.08) 100%);
+  border: 1px solid rgba(251,191,36,0.3); border-radius: 12px;
+  padding: 16px 20px; margin-bottom: 20px;
+  color: #fbbf24; font-size: 0.9rem;
+}
+.vd-remarks { font-style: italic; color: #ef4444; margin: 8px 0 0; }
+
+/* ── Alerts ───────────────────────────────────────────────────── */
+.vd-alert {
+  padding: 12px 20px; border-radius: 10px;
+  margin-bottom: 16px; font-size: 0.9rem; font-weight: 500;
+}
+.vd-alert.success { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #10b981; }
+.vd-alert.error   { background: rgba(239,68,68,0.12);  border: 1px solid rgba(239,68,68,0.3);  color: #ef4444; cursor: pointer; }
+
+/* ── Tabs ─────────────────────────────────────────────────────── */
+.vd-tabs { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid #2a2a35; }
+.vd-tab {
+  background: none; border: none; color: #6b7280;
+  font-family: inherit; font-size: 0.9rem; font-weight: 500;
+  padding: 12px 20px; cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.2s; margin-bottom: -1px;
+}
+.vd-tab:hover { color: #e8910a; }
+.vd-tab.active { color: #e8910a; border-bottom-color: #e8910a; font-weight: 600; }
+
+/* ── Section ──────────────────────────────────────────────────── */
+.vd-section { animation: vd-fadeIn 0.25s ease; }
+@keyframes vd-fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.vd-section-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.vd-section-bar h2 { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0; }
+
+/* ── Stats Grid ───────────────────────────────────────────────── */
+.vd-stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 28px;
+}
+.vd-stat-card {
+  background: #17171f; border: 1px solid #2a2a35; border-radius: 14px;
+  padding: 22px 20px; display: flex; align-items: center; gap: 16px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.vd-stat-card:hover { border-color: #e8910a; transform: translateY(-2px); }
+.vd-stat-icon { font-size: 2rem; }
+.vd-stat-value { font-size: 1.6rem; font-weight: 800; color: #e8910a; margin: 0 0 2px; }
+.vd-stat-label { font-size: 0.8rem; color: #6b7280; margin: 0; }
+
+/* ── Info Grid ────────────────────────────────────────────────── */
+.vd-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.vd-info-block {
+  background: #17171f; border: 1px solid #2a2a35; border-radius: 14px; padding: 24px;
+}
+.vd-info-block h3 { font-size: 1rem; font-weight: 700; color: #e8910a; margin: 0 0 16px; }
+.vd-info-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.vd-info-table tr { border-bottom: 1px solid #1e1e28; }
+.vd-info-table tr:last-child { border-bottom: none; }
+.vd-info-table td { padding: 8px 0; vertical-align: top; }
+.vd-info-key { color: #6b7280; font-weight: 500; width: 110px; padding-right: 12px; }
+
+/* ── Mini Order ───────────────────────────────────────────────── */
+.vd-mini-order {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid #1e1e28; font-size: 0.85rem;
+}
+.vd-mini-order:last-child { border-bottom: none; }
+.vd-order-num { color: #b08d57; font-weight: 600; font-family: monospace; }
+.vd-order-amt { font-weight: 700; color: #10b981; }
+
+/* ── Products Grid ────────────────────────────────────────────── */
+.vd-products-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;
+}
+.vd-product-card {
+  background: #17171f; border: 1px solid #2a2a35; border-radius: 14px;
+  overflow: hidden; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column;
+}
+.vd-product-card:hover { border-color: #e8910a; transform: translateY(-3px); }
+.vd-product-img { position: relative; aspect-ratio: 4/3; background: #1e1e28; overflow: hidden; }
+.vd-product-img img { width: 100%; height: 100%; object-fit: cover; }
+.vd-product-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center;
+  justify-content: center; font-size: 2.5rem; color: #3a3a45; }
+.vd-featured-tag {
+  position: absolute; top: 10px; left: 10px;
+  background: linear-gradient(135deg, #e8910a, #f59e0b);
+  color: #fff; font-size: 0.72rem; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+}
+.vd-product-body { padding: 14px 16px; flex: 1; }
+.vd-product-name { font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0 0 4px; }
+.vd-product-cat  { font-size: 0.78rem; color: #6b7280; margin: 0 0 10px; }
+.vd-product-price { display: flex; gap: 8px; align-items: baseline; margin-bottom: 8px; }
+.vd-price-main { font-size: 1.1rem; font-weight: 700; color: #10b981; }
+.vd-price-disc { font-size: 0.85rem; color: #6b7280; text-decoration: line-through; }
+.vd-product-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #8a8a9a; }
+.vd-product-actions { display: flex; gap: 8px; padding: 10px 16px 14px; }
+
+/* ── Orders Table ─────────────────────────────────────────────── */
+.vd-orders-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid #2a2a35; }
+.vd-orders-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.vd-orders-table th {
+  background: #17171f; color: #6b7280; font-weight: 600; text-align: left;
+  padding: 14px 16px; border-bottom: 1px solid #2a2a35; white-space: nowrap;
+}
+.vd-orders-table td { padding: 14px 16px; border-bottom: 1px solid #1a1a24; color: #c8c3bc; }
+.vd-orders-table tr:last-child td { border-bottom: none; }
+.vd-orders-table tr:hover td { background: #17171f; }
+.vd-order-num-cell { font-family: monospace; color: #e8910a; font-weight: 600; }
+.vd-order-phone { font-size: 0.78rem; color: #6b7280; }
+.vd-h2 { font-size: 1.3rem; font-weight: 700; color: #fff; margin: 0 0 20px; }
+
+/* ── Buttons ──────────────────────────────────────────────────── */
+.vd-btn-primary {
+  background: linear-gradient(135deg, #e8910a 0%, #f59e0b 100%);
+  color: #0f0f13; font-family: inherit; font-size: 0.9rem; font-weight: 700;
+  border: none; border-radius: 10px; padding: 12px 24px; cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.vd-btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.vd-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.vd-btn-outline {
+  background: transparent; color: #e8910a; font-family: inherit; font-size: 0.85rem;
+  font-weight: 600; border: 1px solid #e8910a; border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; transition: background 0.2s;
+}
+.vd-btn-outline:hover { background: rgba(232,145,10,0.1); }
+.vd-btn-danger {
+  background: rgba(239,68,68,0.1); color: #ef4444; font-family: inherit; font-size: 0.85rem;
+  font-weight: 600; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 9px 18px;
+  cursor: pointer; transition: background 0.2s;
+}
+.vd-btn-danger:hover { background: rgba(239,68,68,0.2); }
+.vd-btn-sm { font-size: 0.78rem; padding: 6px 14px; flex: 1; text-align: center; }
+
+/* ── Forms ────────────────────────────────────────────────────── */
+.vd-form { display: flex; flex-direction: column; gap: 20px; }
+.vd-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.vd-full { grid-column: 1 / -1; }
+.vd-field { display: flex; flex-direction: column; gap: 6px; }
+.vd-field label { font-size: 0.82rem; font-weight: 600; color: #8a8a9a; }
+.vd-field input, .vd-field textarea, .vd-field select {
+  background: #0f0f13; border: 1px solid #2a2a35; border-radius: 8px;
+  padding: 10px 14px; color: #e8e3dc; font-family: inherit; font-size: 0.9rem;
+  transition: border-color 0.2s; outline: none;
+}
+.vd-field input:focus, .vd-field textarea:focus, .vd-field select:focus { border-color: #e8910a; }
+.vd-field input[type="file"] { padding: 8px; }
+.vd-hint { font-size: 0.75rem; color: #6b7280; font-weight: 400; }
+.vd-checkbox-row { display: flex; flex-direction: row; gap: 24px; align-items: center; flex-wrap: wrap; }
+.vd-checkbox-row label { flex-direction: row; gap: 8px; align-items: center;
+  font-size: 0.88rem; cursor: pointer; }
+
+/* ── Modal ────────────────────────────────────────────────────── */
+.vd-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px);
+  z-index: 5000; display: flex; align-items: flex-start; justify-content: center;
+  padding: 40px 16px; overflow-y: auto;
+}
+.vd-modal {
+  background: #17171f; border: 1px solid #2a2a35; border-radius: 18px;
+  width: 100%; max-width: 680px; padding: 32px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  animation: vd-modalIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes vd-modalIn { from { opacity: 0; transform: scale(0.94) translateY(-16px); } }
+.vd-modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.vd-modal-header h3 { font-size: 1.2rem; font-weight: 700; color: #fff; margin: 0; }
+.vd-modal-close { background: #2a2a35; border: none; color: #6b7280; border-radius: 8px;
+  width: 32px; height: 32px; cursor: pointer; font-size: 1rem; transition: color 0.2s; }
+.vd-modal-close:hover { color: #fff; }
+.vd-modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
+
+/* ── Settings Card ────────────────────────────────────────────── */
+.vd-settings-card {
+  background: #17171f; border: 1px solid #2a2a35; border-radius: 14px; padding: 28px; max-width: 600px;
+}
+.vd-settings-card h4 { font-size: 0.9rem; font-weight: 700; color: #e8910a; text-transform: uppercase;
+  letter-spacing: 0.8px; margin: 0 0 12px; }
+.vd-settings-card p  { margin: 0 0 8px; font-size: 0.9rem; color: #c8c3bc; }
+.vd-divider { border: none; border-top: 1px solid #2a2a35; margin: 20px 0; }
+.vd-map-link {
+  display: inline-flex; align-items: center; gap: 6px; color: #818cf8;
+  font-size: 0.9rem; text-decoration: none; margin-top: 6px;
+  transition: color 0.2s;
+}
+.vd-map-link:hover { color: #a5b4fc; }
+
+/* ── Empty states ─────────────────────────────────────────────── */
+.vd-empty { color: #6b7280; font-size: 0.88rem; text-align: center; padding: 12px 0; }
+.vd-empty-state {
+  grid-column: 1 / -1; text-align: center; padding: 48px;
+  color: #6b7280; font-size: 1rem; background: #17171f;
+  border: 1px dashed #2a2a35; border-radius: 14px;
+}
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vd-root { padding: 16px; }
+  .vd-header { flex-direction: column; align-items: flex-start; }
+  .vd-info-grid { grid-template-columns: 1fr; }
+  .vd-form-grid { grid-template-columns: 1fr; }
+  .vd-tabs { overflow-x: auto; }
+  .vd-tab  { white-space: nowrap; }
+  .vd-modal { padding: 20px; }
+  .vd-modal-overlay { padding: 16px; }
+}

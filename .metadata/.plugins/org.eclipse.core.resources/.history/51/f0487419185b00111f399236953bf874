@@ -1,0 +1,262 @@
+package com.kumbh.controller;
+
+import com.kumbh.entity.LiveUpdate;
+import com.kumbh.service.LiveUpdateService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.time.Duration;
+import org.springframework.data.domain.Page;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.Set;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolationException;
+import com.kumbh.dto.LiveUpdateDto;
+import com.kumbh.mapper.EntityDtoMapper;
+
+@RestController
+@RequestMapping("/api/live-updates")
+public class LiveUpdateController {
+
+    @Autowired
+    private LiveUpdateService service;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private Validator validator;
+
+    private final String uploadDir = "uploads/";
+
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<LiveUpdateDto> createUpdate(
+            @RequestParam("update") String updateJson,
+            @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+
+        LiveUpdateDto updateDto = objectMapper.readValue(updateJson, LiveUpdateDto.class);
+
+        validateUpdateDto(updateDto);
+
+        if (image != null && !image.isEmpty()) {
+            validateImage(image);
+            String fileName = saveImage(image);
+            updateDto.setImagePath("/api/live-updates/images/" + fileName);
+        }
+
+        LiveUpdate update = EntityDtoMapper.toLiveUpdateEntity(updateDto);
+        
+        // Check for duplicate records
+        if ("LIVE_UPDATE".equals(update.getCategory())) {
+            if (service.existsByTitleAndTimeAndLocation(update.getTitle(), update.getStartTime(), update.getLocation())) {
+                throw new RuntimeException("An update with the same title, time, and location already exists.");
+            }
+        } /* else if ("ESSENTIAL_SERVICE".equals(update.getCategory())) {
+            if (service.existsByTitleAndLocation(update.getTitle(), update.getLocation())) {
+                throw new RuntimeException("A service with the same title and location already exists.");
+            }
+        } */
+
+        LiveUpdate savedUpdate = service.createUpdate(update);
+        return new ResponseEntity<>(EntityDtoMapper.toLiveUpdateDto(savedUpdate), HttpStatus.CREATED);
+    }
+
+    private void validateUpdateDto(LiveUpdateDto dto) {
+        Set<ConstraintViolation<LiveUpdateDto>> violations = validator.validate(dto);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+
+        // Timing validation for LIVE_UPDATE
+        if ("LIVE_UPDATE".equals(dto.getCategory())) {
+            if (dto.getStartTime() == null) {
+                throw new RuntimeException("Start time is required for live updates");
+            }
+            if (dto.getEndTime() == null) {
+                throw new RuntimeException("End time is required for live updates");
+            }
+            if (!dto.getStartTime().isBefore(dto.getEndTime())) {
+                throw new RuntimeException("Start time must be before end time");
+            }
+            
+            // Check past dates
+            java.time.LocalDateTime cutoff = java.time.LocalDateTime.now().minusMinutes(5);
+            if (dto.getId() != null) {
+                try {
+                    LiveUpdate existing = service.getUpdateById(dto.getId());
+                    if (existing != null) {
+                        if (!existing.getStartTime().equals(dto.getStartTime()) && dto.getStartTime().isBefore(cutoff)) {
+                            throw new RuntimeException("Start time cannot be in the past");
+                        }
+                        if (!existing.getEndTime().equals(dto.getEndTime()) && dto.getEndTime().isBefore(cutoff)) {
+                            throw new RuntimeException("End time cannot be in the past");
+                        }
+                    }
+                } catch (Exception e) {
+                    // Fallback to strict check if retrieval fails
+                    if (dto.getStartTime().isBefore(cutoff)) {
+                        throw new RuntimeException("Start time cannot be in the past");
+                    }
+                    if (dto.getEndTime().isBefore(cutoff)) {
+                        throw new RuntimeException("End time cannot be in the past");
+                    }
+                }
+            } else {
+                if (dto.getStartTime().isBefore(cutoff)) {
+                    throw new RuntimeException("Start time cannot be in the past");
+                }
+                if (dto.getEndTime().isBefore(cutoff)) {
+                    throw new RuntimeException("End time cannot be in the past");
+                }
+            }
+            
+            if (java.time.Duration.between(dto.getStartTime(), dto.getEndTime()).toHours() > 48) {
+                throw new RuntimeException("Event duration cannot exceed 48 hours");
+            }
+        }
+
+        // Description validation
+        if (dto.getDescription() != null) {
+            if (isMostlyRepeated(dto.getDescription())) {
+                throw new RuntimeException("Description contains too many repeated characters");
+            }
+            if (isMeaningless(dto.getDescription())) {
+                throw new RuntimeException("Description contains meaningless input");
+            }
+        }
+    }
+
+    private boolean isMostlyRepeated(String str) {
+        if (str.length() < 10) return false;
+        long distinctCount = str.chars().distinct().count();
+        return (double) distinctCount / str.length() < 0.2;
+    }
+
+    private boolean isMeaningless(String str) {
+        // Rejects if only digits or only special characters
+        return str.matches("^[0-9]+$") || str.matches("^[^a-zA-Z0-9]+$");
+    }
+
+    private void validateImage(MultipartFile image) {
+        String originalFilename = image.getOriginalFilename();
+        if (originalFilename != null) {
+            // Prevent double extensions like image.jpg.exe
+            if (originalFilename.split("\\.").length > 2) {
+                throw new RuntimeException("Invalid file name: double extensions are not allowed");
+            }
+            // Prevent executables
+            if (originalFilename.toLowerCase().endsWith(".exe") || originalFilename.toLowerCase().endsWith(".sh")) {
+                throw new RuntimeException("Executable files are not allowed");
+            }
+        }
+
+        // File size limit: 2MB
+        if (image.getSize() > 2 * 1024 * 1024) {
+            throw new RuntimeException("Image size must be less than 2MB");
+        }
+
+        // File type validation
+        String contentType = image.getContentType();
+        if (contentType == null || !isValidContentType(contentType)) {
+            throw new RuntimeException("Only JPG, JPEG, PNG, WEBP, and SVG images are allowed");
+        }
+    }
+
+    private boolean isValidContentType(String contentType) {
+        return contentType.equals("image/jpeg") || 
+               contentType.equals("image/jpg") || 
+               contentType.equals("image/png") || 
+               contentType.equals("image/webp") ||
+               contentType.equals("image/svg+xml");
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllUpdates(
+            @RequestParam(value = "search", required = false) String search,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "size", required = false) Integer size,
+            @RequestParam(value = "sortBy", required = false) String sortBy,
+            @RequestParam(value = "direction", required = false) String direction) {
+
+        if (page == null || size == null) {
+            java.util.List<LiveUpdateDto> dtos = service.getAllUpdates().stream()
+                    .map(EntityDtoMapper::toLiveUpdateDto)
+                    .collect(java.util.stream.Collectors.toList());
+            return ResponseEntity.ok(dtos);
+        }
+
+        return ResponseEntity.ok(service.getPaginatedUpdates(search, category, page, size, sortBy, direction));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LiveUpdateDto> getUpdateById(@PathVariable Long id) {
+        return ResponseEntity.ok(EntityDtoMapper.toLiveUpdateDto(service.getUpdateById(id)));
+    }
+
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<LiveUpdateDto> updateUpdate(
+            @PathVariable Long id,
+            @RequestParam("update") String updateJson,
+            @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+        
+        LiveUpdateDto updateDto = objectMapper.readValue(updateJson, LiveUpdateDto.class);
+        updateDto.setId(id);
+        validateUpdateDto(updateDto);
+
+        if (image != null && !image.isEmpty()) {
+            validateImage(image);
+            String fileName = saveImage(image);
+            updateDto.setImagePath("/api/live-updates/images/" + fileName);
+        }
+
+        LiveUpdate updateDetails = EntityDtoMapper.toLiveUpdateEntity(updateDto);
+        
+        LiveUpdate updated = service.updateUpdate(id, updateDetails);
+        return ResponseEntity.ok(EntityDtoMapper.toLiveUpdateDto(updated));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUpdate(@PathVariable Long id) {
+        service.deleteUpdate(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    private String saveImage(MultipartFile image) throws IOException {
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        
+        String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        return fileName;
+    }
+    
+    // Helper endpoint to serve images if static resource handler is not preferred
+    @GetMapping("/images/{fileName}")
+    public ResponseEntity<byte[]> getImage(@PathVariable String fileName) throws IOException {
+        Path filePath = Paths.get(uploadDir).resolve(fileName);
+        if (!Files.exists(filePath)) {
+            return ResponseEntity.notFound().build();
+        }
+        byte[] imageBytes = Files.readAllBytes(filePath);
+        String contentType = Files.probeContentType(filePath);
+        return ResponseEntity.ok()
+                .header("Content-Type", contentType)
+                .body(imageBytes);
+    }
+}

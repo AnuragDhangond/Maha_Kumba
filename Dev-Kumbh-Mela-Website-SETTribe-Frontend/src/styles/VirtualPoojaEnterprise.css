@@ -1,0 +1,486 @@
+
+/* Enterprise-grade Design System for Virtual Pooja */
+:root {
+  --pooja-primary: #ff7e36;
+  --pooja-primary-dark: #e65c00;
+  --pooja-primary-light: rgba(255, 126, 54, 0.1);
+  --pooja-accent: #ffcc00;
+  --pooja-text-main: #2c1a0e;
+  --pooja-text-muted: #795d4d;
+  --pooja-bg-card: #ffffff;
+  --pooja-bg-page: #fbf9f6;
+  --pooja-border: rgba(255, 126, 54, 0.15);
+  --pooja-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --pooja-shadow-md: 0 10px 25px rgba(44, 26, 14, 0.08);
+  --pooja-shadow-lg: 0 20px 40px rgba(44, 26, 14, 0.12);
+  --pooja-radius-sm: 8px;
+  --pooja-radius-md: 16px;
+  --pooja-radius-lg: 24px;
+  --pooja-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Priest Section Container */
+.enterprise-pandits-section {
+  padding: 60px 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.enterprise-pandits-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Priest Card Refactored */
+.priest-card-enterprise {
+  background: var(--pooja-bg-card);
+  border: 1px solid var(--pooja-border);
+  border-radius: var(--pooja-radius-lg);
+  box-shadow: var(--pooja-shadow-md);
+  overflow: hidden;
+  transition: var(--pooja-transition);
+  display: flex;
+  flex-direction: row;
+  min-height: 380px;
+  position: relative;
+}
+
+.priest-card-enterprise:hover {
+  box-shadow: var(--pooja-shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* Left Profile Section (Fixed Width) */
+.priest-profile-sidebar {
+  width: 320px;
+  background: linear-gradient(180deg, #fffcf9 0%, #fff3e6 100%);
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-right: 1px dashed var(--pooja-border);
+  flex-shrink: 0;
+}
+
+.priest-image-container {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.priest-image-enterprise {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 20px rgba(255, 126, 54, 0.2);
+}
+
+.priest-rating-badge {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: var(--pooja-accent);
+  color: var(--pooja-text-main);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
+  white-space: nowrap;
+}
+
+.priest-name-enterprise {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--pooja-text-main);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.priest-specialty-enterprise {
+  color: var(--pooja-primary-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.priest-stats-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.stat-item-enterprise {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--pooja-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* Right Content Section (Flex Grow) */
+.priest-poojas-main {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.section-label-enterprise {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--pooja-text-muted);
+  font-weight: 800;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label-enterprise::after {
+  content: '';
+  flex-grow: 1;
+  height: 1px;
+  background: var(--pooja-border);
+}
+
+/* Pooja Responsive Grid */
+.pooja-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.pooja-card-enterprise {
+  background: #fff;
+  border: 1.5px solid #f0f0f0;
+  border-radius: var(--pooja-radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--pooja-transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.pooja-card-enterprise:hover {
+  border-color: var(--pooja-primary);
+  background: var(--pooja-primary-light);
+  transform: translateY(-2px);
+}
+
+.pooja-card-enterprise.selected {
+  border-color: var(--pooja-primary);
+  background: var(--pooja-primary-light);
+  box-shadow: 0 0 0 1px var(--pooja-primary);
+}
+
+.pooja-card-enterprise.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--pooja-primary);
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.pooja-info-header {
+  margin-bottom: 16px;
+}
+
+.pooja-title-enterprise {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--pooja-text-main);
+  margin-bottom: 4px;
+}
+
+.pooja-meta-enterprise {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--pooja-text-muted);
+}
+
+.pooja-pricing-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.pooja-price-enterprise {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--pooja-primary-dark);
+}
+
+.btn-book-now {
+  background: var(--pooja-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--pooja-transition);
+}
+
+.btn-book-now:hover {
+  background: var(--pooja-primary-dark);
+  transform: scale(1.05);
+}
+
+/* Empty State Styling */
+.pooja-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--pooja-bg-page);
+  border-radius: var(--pooja-radius-md);
+  border: 2px dashed var(--pooja-border);
+  flex-grow: 1;
+}
+
+.empty-icon-wrap {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--pooja-primary);
+  box-shadow: var(--pooja-shadow-sm);
+}
+
+.pooja-empty-state h5 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--pooja-text-main);
+  margin-bottom: 8px;
+}
+
+.pooja-empty-state p {
+  color: var(--pooja-text-muted);
+  max-width: 300px;
+}
+
+/* Dropdown Booking Form */
+.enterprise-booking-form-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+  background: #fbf9f6;
+  border-top: 1px solid var(--pooja-border);
+}
+
+.enterprise-booking-form-wrap.expanded {
+  max-height: 2000px; /* Large enough to fit form */
+  padding: 40px;
+}
+
+.booking-form-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.form-header-enterprise {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.form-header-enterprise h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--pooja-text-main);
+}
+
+.form-grid-enterprise {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.form-group-enterprise {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-enterprise.full-width {
+  grid-column: span 2;
+}
+
+.form-group-enterprise label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--pooja-text-main);
+}
+
+.form-group-enterprise input, 
+.form-group-enterprise select, 
+.form-group-enterprise textarea {
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: var(--pooja-transition);
+  background: #fff;
+}
+
+.form-group-enterprise input:focus, 
+.form-group-enterprise select:focus, 
+.form-group-enterprise textarea:focus {
+  border-color: var(--pooja-primary);
+  outline: none;
+  box-shadow: 0 0 0 4px var(--pooja-primary-light);
+}
+
+.form-actions-enterprise {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.btn-cancel-enterprise {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  color: var(--pooja-text-muted);
+  background: transparent;
+  border: 1.5px solid #e2e8f0;
+  cursor: pointer;
+}
+
+.btn-confirm-enterprise {
+  padding: 12px 40px;
+  border-radius: 12px;
+  font-weight: 800;
+  color: white;
+  background: var(--pooja-primary);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(255, 126, 54, 0.3);
+}
+
+.btn-confirm-enterprise:hover {
+  background: var(--pooja-primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-confirm-enterprise:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Auth Check UI */
+.auth-warning-box {
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-radius: var(--pooja-radius-md);
+  padding: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-login-redirect {
+  background: #e53e3e;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+/* Utility Classes (to replace tailwind-like ones) */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 8px; }
+.gap-4 { gap: 16px; }
+.mt-4 { margin-top: 16px; }
+.w-full { width: 100%; }
+.text-orange-500 { color: #ff7e36; }
+.text-green-500 { color: #10b981; }
+.text-xs { font-size: 0.75rem; }
+.opacity-70 { opacity: 0.7; }
+.ml-1 { margin-left: 4px; }
+@media (max-width: 1024px) {
+  .priest-card-enterprise {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .priest-profile-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px dashed var(--pooja-border);
+    padding: 30px;
+  }
+  
+  .priest-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .form-grid-enterprise {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group-enterprise.full-width {
+    grid-column: span 1;
+  }
+  
+  .priest-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pooja-selection-grid {
+    grid-template-columns: 1fr;
+  }
+}

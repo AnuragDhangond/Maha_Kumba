@@ -1,0 +1,543 @@
+/* ============================================================
+   MyProducts.css — Premium Vendor Product Listing Page
+   ============================================================ */
+
+/* Page wrapper with a warm, premium gradient background matching the Kumbh Mela branding */
+.my-products-page {
+    width: 100%;
+    padding: 120px 5% 60px;
+    background: transparent;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Back Link styling */
+.my-products-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #8c7e73;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.my-products-back-link:hover {
+    color: #ea580c;
+    transform: translateX(-4px);
+}
+
+/* Stunning Dashboard Hero Banner */
+.my-products-hero-banner {
+    background: linear-gradient(135deg, #2c1a0e 0%, #4a2a18 50%, #8c4e20 100%);
+    border-radius: 24px;
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(44, 26, 14, 0.15);
+    border: 1px solid rgba(234, 88, 12, 0.2);
+}
+
+/* Subtle spiritual background glow overlay in the banner */
+.my-products-hero-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.my-products-hero-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.my-products-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.my-products-hero-banner .my-products-title {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #fdfbf7;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.my-products-hero-banner .my-products-subtitle {
+    font-size: 14px;
+    color: #e7dfd5;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Modern Gradient Submit Button */
+.my-products-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ea580c 0%, #ff7e36 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+.my-products-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(234, 88, 12, 0.35);
+    background: linear-gradient(135deg, #ff7e36 0%, #ea580c 100%);
+}
+.my-products-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Stats grid with glassmorphism panels */
+.my-products-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.my-products-stats .stat-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-direction: row;
+}
+
+.stat-card-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.my-products-stats .stat-card .stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8c7e73;
+    margin: 0;
+}
+
+.my-products-stats .stat-card .stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2c1a0e;
+    margin: 0;
+}
+
+.stat-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+/* Specific Card Styling & Hover Shadow Accents */
+.my-products-stats .stat-card.total {
+    border-left: 4px solid #ea580c;
+}
+.my-products-stats .stat-card.total .stat-icon-wrapper {
+    background: linear-gradient(135deg, #ea580c 0%, #ff8c42 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(234, 88, 12, 0.2);
+}
+.my-products-stats .stat-card.total:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(234, 88, 12, 0.12);
+}
+
+.my-products-stats .stat-card.pending {
+    border-left: 4px solid #d97706;
+}
+.my-products-stats .stat-card.pending .stat-icon-wrapper {
+    background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+}
+.my-products-stats .stat-card.pending:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(217, 119, 6, 0.12);
+}
+
+.my-products-stats .stat-card.approved {
+    border-left: 4px solid #059669;
+}
+.my-products-stats .stat-card.approved .stat-icon-wrapper {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2);
+}
+.my-products-stats .stat-card.approved:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(5, 150, 105, 0.12);
+}
+
+.my-products-stats .stat-card.attention {
+    border-left: 4px solid #dc2626;
+}
+.my-products-stats .stat-card.attention .stat-icon-wrapper {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+}
+.my-products-stats .stat-card.attention:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 35px rgba(220, 38, 38, 0.12);
+}
+
+.my-products-stats .stat-card:hover .stat-icon-wrapper {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Products grid */
+.submitted-products-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+}
+
+/* ============================================================
+   Product Card Redesign (Extremely Premium)
+   ============================================================ */
+.submitted-product-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0 10px 30px rgba(74, 42, 24, 0.04);
+    border: 1px solid rgba(74, 42, 24, 0.05);
+    box-sizing: border-box;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.submitted-product-card:hover {
+    box-shadow: 0 20px 40px rgba(74, 42, 24, 0.12);
+    transform: translateY(-6px);
+    border-color: rgba(234, 88, 12, 0.15);
+}
+
+/* Image section strictly contained box */
+.submitted-product-image-section {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 220px !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+    background: #faf9f6 !important;
+    border: 1px solid rgba(74, 42, 24, 0.03) !important;
+    flex-shrink: 0 !important;
+    position: relative;
+}
+
+.submitted-product-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.submitted-product-card:hover .submitted-product-image {
+    transform: scale(1.08);
+}
+
+/* Status Badges - Floating Glassmorphism design */
+.submitted-status-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 5;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.submitted-status-badge.pending          { background: rgba(254, 243, 199, 0.9); color: #b45309; }
+.submitted-status-badge.approved         { background: rgba(209, 250, 229, 0.9); color: #047857; }
+.submitted-status-badge.rejected         { background: rgba(254, 226, 226, 0.9); color: #b91c1c; }
+.submitted-status-badge.under_review     { background: rgba(224, 242, 254, 0.9); color: #0369a1; }
+.submitted-status-badge.changes_requested { background: rgba(255, 237, 213, 0.9); color: #c2410c; }
+
+/* Details section */
+.submitted-product-details-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 16px 4px 12px 4px;
+}
+
+.submitted-product-top-row h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2c1a0e;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.submitted-product-category {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ea580c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+.submitted-product-price {
+    font-size: 22px;
+    font-weight: 850;
+    color: #ea580c;
+    margin: 2px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.submitted-product-description {
+    font-size: 13.5px;
+    color: #5d4037;
+    margin: 0;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.submitted-product-date {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8c7e73;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 14px;
+    border-top: 1px dashed rgba(74, 42, 24, 0.08);
+    padding-top: 10px;
+}
+
+/* Actions section with detailed buttons */
+.submitted-product-actions-section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-shrink: 0;
+    margin-top: auto;
+    border-top: 1px solid rgba(74, 42, 24, 0.06);
+    padding-top: 16px;
+}
+
+.submitted-product-actions-section button {
+    flex: 1;
+    border: 1px solid transparent;
+    padding: 11px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.submitted-product-actions-section button:active {
+    transform: scale(0.96);
+}
+
+.submitted-btn-view {
+    background: transparent;
+    color: #ea580c;
+    border: 1.5px solid #ea580c !important;
+}
+.submitted-btn-view:hover {
+    background: linear-gradient(135deg, #ea580c 0%, #ff7e36 100%);
+    border-color: transparent !important;
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(234, 88, 12, 0.25);
+}
+
+.submitted-btn-edit {
+    background: linear-gradient(135deg, #ea580c 0%, #ff7e36 100%);
+    color: #fff;
+}
+.submitted-btn-edit:hover {
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+    background: linear-gradient(135deg, #ff7e36 0%, #ea580c 100%);
+}
+
+.submitted-btn-delete {
+    background: #fff5f5;
+    color: #dc2626;
+    border: 1px solid #fee2e2 !important;
+}
+.submitted-btn-delete:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Empty state design */
+.my-products-empty {
+    text-align: center;
+    padding: 80px 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    border: 1px solid rgba(74, 42, 24, 0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    grid-column: 1 / -1;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+.my-products-empty h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #2c1a0e;
+    margin: 16px 0 8px;
+}
+
+.my-products-empty p {
+    font-size: 14px;
+    color: #8c7e73;
+    margin: 0 0 24px;
+    line-height: 1.6;
+}
+
+.my-products-empty button {
+    background: linear-gradient(135deg, #ea580c 0%, #ff7e36 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: 750;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2);
+    transition: all 0.3s ease;
+}
+.my-products-empty button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(234, 88, 12, 0.3);
+}
+
+/* Loading state */
+.my-products-loading {
+    text-align: center;
+    padding: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #8c7e73;
+    grid-column: 1 / -1;
+}
+
+/* ============================================================
+   Responsive Designs
+   ============================================================ */
+@media (max-width: 1200px) {
+    .my-products-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .my-products-page {
+        padding: 96px 16px 40px;
+    }
+
+    .my-products-hero-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 30px 24px;
+        text-align: center;
+    }
+
+    .my-products-hero-banner .my-products-title {
+        font-size: 26px;
+    }
+
+    .my-products-submit-btn {
+        justify-content: center;
+    }
+
+    .my-products-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .submitted-products-list {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}

@@ -1,0 +1,171 @@
+@media (max-width: 768px) {
+  .table-wrapper-premium {
+    padding: 12px !important;
+    overflow: visible !important;
+  }
+
+  .table-wrapper-premium > div {
+    overflow: visible !important;
+  }
+
+  .table-wrapper-premium .admin-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+    border-collapse: separate !important;
+    white-space: normal !important;
+    background: transparent !important;
+  }
+
+  .table-wrapper-premium .admin-table thead {
+    display: none !important;
+  }
+
+  .table-wrapper-premium .admin-table tbody {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .table-wrapper-premium .admin-table tr {
+    display: block !important;
+    width: 100% !important;
+    overflow: hidden;
+    border: 1px solid rgba(255, 126, 54, 0.14);
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff 0%, #fffaf5 100%);
+    box-shadow: 0 10px 26px rgba(74, 42, 24, 0.08);
+  }
+
+  .table-wrapper-premium .admin-table tr:hover td {
+    background: transparent !important;
+  }
+
+  .table-wrapper-premium .admin-table td {
+    display: grid !important;
+    grid-template-columns: minmax(96px, 118px) minmax(0, 1fr);
+    align-items: start !important;
+    gap: 12px !important;
+    width: 100% !important;
+    padding: 12px 14px !important;
+    border-bottom: 1px solid rgba(255, 126, 54, 0.08) !important;
+    white-space: normal !important;
+    word-break: break-word;
+    background: transparent !important;
+    box-sizing: border-box;
+  }
+
+  .table-wrapper-premium .admin-table tr[data-responsive-row="true"]:not([data-expanded="true"]) td:not(:first-child) {
+    display: none !important;
+  }
+
+  .table-wrapper-premium .admin-table tr[data-responsive-row="true"]:not([data-expanded="true"]) td:first-child {
+    border-bottom: none !important;
+    padding-bottom: 16px !important;
+  }
+
+  .table-wrapper-premium .admin-table .responsive-summary-cell {
+    position: relative;
+    padding-right: 52px !important;
+  }
+
+  .table-wrapper-premium .admin-table td::before {
+    content: attr(data-label);
+    font-size: 0.72rem;
+    line-height: 1.4;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #c05621;
+  }
+
+  .table-wrapper-premium .admin-table td:first-child {
+    padding-top: 16px !important;
+  }
+
+  .table-wrapper-premium .admin-table td:last-child {
+    border-bottom: none !important;
+    padding-bottom: 16px !important;
+  }
+
+  .table-wrapper-premium .admin-table td[colspan] {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    text-align: center !important;
+  }
+
+  .table-wrapper-premium .admin-table td[colspan]::before {
+    content: none !important;
+  }
+
+  .table-wrapper-premium .admin-table .responsive-row-toggle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 999px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 126, 54, 0.12);
+    color: #c05621;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .table-wrapper-premium .admin-table .responsive-row-toggle::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform 0.2s ease, margin-top 0.2s ease;
+  }
+
+  .table-wrapper-premium .admin-table tr[data-expanded="true"] .responsive-row-toggle::before {
+    transform: rotate(225deg);
+    margin-top: 3px;
+  }
+
+  .table-wrapper-premium .admin-table .responsive-row-toggle:hover {
+    background: rgba(255, 126, 54, 0.2);
+  }
+
+  .table-wrapper-premium .admin-table .responsive-row-toggle:focus-visible {
+    outline: 2px solid rgba(192, 86, 33, 0.35);
+    outline-offset: 2px;
+  }
+
+  .table-wrapper-premium .table-actions-modern {
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+
+  .table-wrapper-premium .table-actions-modern > * {
+    flex: 0 0 auto;
+  }
+
+  .pagination-bar-premium {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 18px 6px 8px !important;
+  }
+
+  .pagination-bar-premium .pager-info {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-wrapper-premium .admin-table td {
+    grid-template-columns: 1fr !important;
+    gap: 6px !important;
+  }
+}
+

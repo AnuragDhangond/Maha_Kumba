@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+.maintenance-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #f7ebd7;
+    background-image: 
+        radial-gradient(circle at top left, rgba(230, 81, 0, 0.1), transparent),
+        radial-gradient(circle at bottom right, rgba(230, 81, 0, 0.1), transparent),
+        linear-gradient(rgba(247, 235, 215, 0.95), rgba(247, 235, 215, 0.95)),
+        url('../assets/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: #4a2a18;
+    z-index: 1;
+}
+
+/* Background mandala animation */
+.sacred-mandala {
+    position: absolute;
+    width: 40vw; /* Reduced size */
+    opacity: 0.1;
+    z-index: -1;
+    animation: rotateSlow 40s linear infinite;
+    pointer-events: none;
+}
+
+.sacred-mandala.left {
+    top: -5vw;
+    left: -5vw;
+}
+
+.sacred-mandala.right {
+    bottom: -10vw;
+    right: -10vw;
+}
+
+@keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.maintenance-card {
+    background: rgba(255, 252, 245, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    width: 100%;
+    max-width: 600px;
+    max-height: 95vh;
+    border-radius: 30px;
+    padding: 2rem; /* Reduced from 3rem */
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(230, 81, 0, 0.1),
+        inset 0 0 80px rgba(255, 255, 255, 0.5);
+    text-align: center;
+    position: relative;
+    margin: auto;
+    z-index: 10;
+     border-top: 6px solid #ff7e36;
+     animation: cardIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     gap: 15px; /* Added gap to manage vertical space */
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.maintenance-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.maintenance-logo {
+    width: 50px; /* Reduced from 70px */
+    height: 50px;
+    object-fit: contain;
+    animation: bounceSlow 3s ease-in-out infinite;
+}
+
+@keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.logo-divider {
+    width: 30px;
+    height: 2px;
+    background: #ff7e36;
+    border-radius: 2px;
+}
+
+.brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem; /* Reduced from 1.5rem */
+    font-weight: 800;
+    color: #e65c00;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(230, 81, 0, 0.05);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem; /* Reduced from 0.8rem */
+    font-weight: 700;
+    color: #ff7e36;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    align-self: center;
+}
+
+.pulse-circle {
+    width: 8px;
+    height: 8px;
+    background: #ff7e36;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pulse-circle::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: inherit;
+    border-radius: inherit;
+    animation: pulseAnim 2s infinite;
+}
+
+@keyframes pulseAnim {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+.maintenance-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem; /* Reduced from 2.8rem */
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    color: #3e2723;
+}
+
+.maintenance-text {
+    font-size: 0.95rem; /* Reduced from 1.1rem */
+    line-height: 1.5;
+    color: #5d4037;
+    margin-bottom: 1rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.spiritual-quote {
+    font-style: italic;
+    color: #8d6e63;
+    padding: 1rem;
+    border-top: 1px solid rgba(230, 81, 0, 0.1);
+    border-bottom: 1px solid rgba(230, 81, 0, 0.1);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.expected-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    margin-bottom: 1rem;
+}
+
+.time-icon {
+    font-size: 1.5rem;
+}
+
+.time-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.time-details span {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 600;
+}
+
+.time-details strong {
+    font-size: 1rem;
+    color: #ff7e36;
+    font-weight: 800;
+}
+
+.maintenance-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Reduced from 2rem */
+}
+
+.back-home-btn {
+    background: linear-gradient(135deg, #ff7e36, #e65c00);
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(230, 81, 0, 0.3);
+}
+
+.back-home-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(230, 81, 0, 0.4);
+}
+
+.social-connect {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.social-connect span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #a1887f;
+    text-transform: uppercase;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    font-size: 1.1rem;
+}
+
+.social-icons .icon {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.social-icons .icon:hover {
+    transform: scale(1.3);
+}
+
+/* Particles */
+.spiritual-particles .particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ff7e36;
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: floatParticle 10s infinite Sidhu;
+}
+
+@keyframes floatParticle {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 0.4; }
+    80% { opacity: 0.4; }
+    100% { transform: translate(100px, -100vh); opacity: 0; }
+}
+
+/* Randomized Particle Positions */
+.p1 { left: 10%; bottom: 10%; animation-delay: 0s; }
+.p2 { left: 30%; bottom: 20%; animation-delay: 2s; }
+.p3 { left: 50%; bottom: 15%; animation-delay: 4s; }
+.p4 { left: 70%; bottom: 25%; animation-delay: 6s; }
+.p5 { left: 90%; bottom: 10%; animation-delay: 8s; }
+.p6 { left: 20%; bottom: 30%; animation-delay: 1s; }
+.p7 { left: 40%; bottom: 5%; animation-delay: 3s; }
+.p8 { left: 80%; bottom: 15%; animation-delay: 5s; }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .maintenance-card {
+        padding: 2rem 1.5rem;
+        border-radius: 30px;
+    }
+    .maintenance-title {
+        font-size: 2rem;
+    }
+    .brand-name {
+        font-size: 1.2rem;
+    }
+}
+

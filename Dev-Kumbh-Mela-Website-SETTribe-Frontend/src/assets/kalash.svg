@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 360">
+    <defs>
+      <radialGradient id="lpGold" cx="37%" cy="27%" r="73%">
+        <stop offset="0%"  stopColor="#FFE066"/>
+        <stop offset="44%" stopColor="#D4900A"/>
+        <stop offset="100%" stopColor="#7A4D00"/>
+      </radialGradient>
+      <radialGradient id="lpWater" cx="50%" cy="26%" r="63%">
+        <stop offset="0%"  stopColor="rgba(130,210,255,0.78)"/>
+        <stop offset="100%" stopColor="rgba(25,118,210,0.45)"/>
+      </radialGradient>
+    </defs>
+    <path
+      d="M88,110 C65,134 49,170 55,216 C61,262 86,298 140,308 C194,298 219,262 225,216 C231,170 215,134 192,110 Z"
+      fill="url(#lpGold)"/>
+    <path d="M75,170 Q140,156 205,170" fill="none" stroke="rgba(255,220,80,0.52)" strokeWidth="2.5"/>
+    <path d="M65,204 Q140,190 215,204" fill="none" stroke="rgba(255,220,80,0.38)" strokeWidth="2"/>
+    <path d="M68,240 Q140,228 212,240" fill="none" stroke="rgba(255,220,80,0.26)" strokeWidth="1.5"/>
+    <rect x="109" y="87" width="62" height="28" rx="8" fill="#C8870A"/>
+    <ellipse cx="140" cy="87" rx="37" ry="11" fill="#DFA000"/>
+    <ellipse cx="140" cy="91" rx="32" ry="9" fill="url(#lpWater)"/>
+    <g transform="translate(140,82)">
+        <path d="M0,-4 C-10,-26 -7,-52 0,-64 C7,-52 10,-26 0,-4Z" fill="#2E7D32" transform="rotate(-27)"/>
+        <path d="M0,-4 C-10,-26 -7,-52 0,-64 C7,-52 10,-26 0,-4Z" fill="#43A047" transform="rotate(-9)"/>
+        <path d="M0,-4 C-10,-26 -7,-52 0,-64 C7,-52 10,-26 0,-4Z" fill="#2E7D32" transform="rotate(9)"/>
+        <path d="M0,-4 C-10,-26 -7,-52 0,-64 C7,-52 10,-26 0,-4Z" fill="#43A047" transform="rotate(27)"/>
+    </g>
+    <ellipse cx="140" cy="55" rx="19" ry="16" fill="#8B6914"/>
+    <ellipse cx="140" cy="52" rx="13" ry="11" fill="#A67C22"/>
+    <ellipse cx="140" cy="306" rx="54" ry="14" fill="#8B5E00"/>
+    <rect x="100" y="305" width="80" height="14" rx="5" fill="#7A5000"/>
+    <ellipse cx="140" cy="319" rx="42" ry="8" fill="#6A4200"/>
+    <text x="140" y="248" textAnchor="middle" fontSize="38" fontFamily="serif" fill="rgba(255,232,100,0.58)">ॐ</text>
+</svg>

@@ -1,0 +1,607 @@
+
+/* Premium Marketplace Styling for Virtual Pooja */
+:root {
+  --mk-saffron: #ff7e36;
+  --mk-saffron-dark: #e65c00;
+  --mk-saffron-light: rgba(255, 126, 54, 0.08);
+  --mk-beige: #fbf9f6;
+  --mk-text-dark: #2c1a0e;
+  --mk-text-muted: #795d4d;
+  --mk-border: rgba(255, 126, 54, 0.12);
+  --mk-shadow-soft: 0 4px 20px rgba(44, 26, 14, 0.05);
+  --mk-shadow-hover: 0 12px 30px rgba(44, 26, 14, 0.1);
+  --mk-radius: 16px;
+  --mk-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Marketplace Container */
+.mk-marketplace-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 0;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.mk-acharya-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Compact Acharya Card */
+.mk-acharya-card {
+  background: #ffffff;
+  border: 1px solid var(--mk-border);
+  border-radius: var(--mk-radius);
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 280px 1fr 180px;
+  align-items: center;
+  gap: 30px;
+  transition: var(--mk-transition);
+  box-shadow: var(--mk-shadow-soft);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.mk-acharya-card:hover {
+  box-shadow: var(--mk-shadow-hover);
+  border-color: var(--mk-saffron);
+  transform: translateY(-2px);
+}
+
+/* Left Section: Profile Summary */
+.mk-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.mk-avatar-container {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+
+.mk-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--mk-saffron);
+  padding: 2px;
+}
+
+.mk-rating-tag {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffcc00;
+  color: #2c1a0e;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.mk-info-content {
+  overflow: hidden;
+}
+
+.mk-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--mk-text-dark);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mk-specialty {
+  font-size: 0.85rem;
+  color: var(--mk-saffron-dark);
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.mk-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: var(--mk-text-muted);
+}
+
+.mk-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Center Section: Pooja Previews */
+.mk-pooja-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 0 20px;
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  min-height: 60px;
+}
+
+.mk-pooja-chip {
+  background: var(--mk-beige);
+  border: 1px solid var(--mk-border);
+  padding: 8px 14px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+  transition: var(--mk-transition);
+}
+
+.mk-pooja-chip:hover {
+  background: var(--mk-saffron-light);
+  border-color: var(--mk-saffron);
+}
+
+.mk-chip-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--mk-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mk-chip-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.mk-chip-price {
+  color: var(--mk-saffron-dark);
+  font-weight: 800;
+}
+
+.mk-chip-duration {
+  color: var(--mk-text-muted);
+}
+
+.mk-more-rituals {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--mk-saffron);
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* Right Section: Action */
+.mk-action-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mk-btn-details {
+  background: var(--mk-saffron);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--mk-transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(255, 126, 54, 0.2);
+}
+
+.mk-btn-details:hover {
+  background: var(--mk-saffron-dark);
+  transform: scale(1.02);
+  box-shadow: 0 6px 16px rgba(255, 126, 54, 0.3);
+}
+
+/* Modal Styling */
+.mk-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 17, 9, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.mk-modal-content {
+  background: #ffffff;
+  width: 100%;
+  max-width: 850px;
+  max-height: 85vh;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 126, 54, 0.1);
+  box-sizing: border-box;
+}
+
+.mk-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #fbf9f6;
+  border: 1px solid rgba(255, 126, 54, 0.15);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--mk-text-dark);
+  transition: var(--mk-transition);
+}
+
+.mk-modal-close:hover {
+  background: var(--mk-saffron-light);
+  border-color: var(--mk-saffron);
+  color: var(--mk-saffron-dark);
+  transform: rotate(90deg);
+}
+
+.mk-modal-header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.mk-modal-header-info .mk-specialty {
+  font-size: 1rem;
+  color: var(--mk-saffron-dark);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.mk-modal-header-info .mk-name {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--mk-text-dark);
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+}
+
+.mk-modal-header-info .mk-modal-header-meta {
+  font-size: 0.9rem;
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  color: var(--mk-text-muted);
+}
+
+.mk-modal-about-section {
+  margin-bottom: 40px;
+}
+
+.mk-modal-about-meta {
+  gap: 30px;
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mk-pooja-card-meta {
+  margin-top: 6px;
+  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mk-modal-pooja-action {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.mk-modal-pooja-action .pooja-price-enterprise {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--mk-saffron-dark);
+}
+
+.mk-modal-why-box {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid var(--mk-border);
+}
+
+.mk-modal-why-title {
+  margin-bottom: 16px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--mk-text-dark);
+}
+
+.mk-why-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mk-why-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 0.85rem;
+  align-items: center;
+  color: var(--mk-text-muted);
+}
+
+.mk-modal-header {
+  padding: 24px 32px;
+  background: linear-gradient(135deg, #fffcf9 0%, #fff4e6 100%);
+  border-bottom: 1px solid var(--mk-border);
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.mk-modal-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(255, 126, 54, 0.15);
+  border: 3px solid #ffffff;
+}
+
+.mk-modal-body {
+  padding: 24px 32px;
+  overflow-y: auto;
+  flex-grow: 1;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mk-saffron-dark) #f5f5f5;
+}
+
+.mk-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mk-modal-body::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+.mk-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 126, 54, 0.3);
+  border-radius: 10px;
+}
+
+.mk-modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--mk-saffron);
+}
+
+.mk-modal-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.mk-modal-section-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--mk-text-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px dashed rgba(255, 126, 54, 0.15);
+  padding-bottom: 8px;
+}
+
+.mk-bio-text {
+  color: var(--mk-text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+/* Full Pooja List in Modal */
+.mk-modal-pooja-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mk-modal-pooja-card {
+  background: #fbf9f6;
+  border: 1px solid var(--mk-border);
+  border-left: 4px solid rgba(255, 126, 54, 0.3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mk-modal-pooja-card:hover {
+  background: #ffffff;
+  border-color: var(--mk-saffron);
+  border-left-color: var(--mk-saffron);
+  box-shadow: 0 6px 18px rgba(255, 126, 54, 0.08);
+  transform: translateY(-1.5px);
+}
+
+.mk-modal-btn-book {
+  background: linear-gradient(135deg, var(--mk-saffron) 0%, var(--mk-saffron-dark) 100%);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 126, 54, 0.2);
+  transition: all 0.2s ease;
+}
+
+.mk-modal-btn-book:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(255, 126, 54, 0.35);
+  filter: brightness(1.05);
+}
+
+.mk-modal-btn-book:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .mk-acharya-card {
+    grid-template-columns: 240px 1fr 150px;
+    gap: 20px;
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mk-acharya-card {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .mk-pooja-previews {
+    border: none;
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .mk-action-section {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .mk-btn-details {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .mk-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Details Modal Responsiveness */
+  .mk-modal-overlay {
+    padding: 12px;
+  }
+
+  .mk-modal-content {
+    max-height: 90vh;
+    border-radius: 16px;
+  }
+
+  .mk-modal-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 20px 20px;
+    gap: 16px;
+  }
+
+  .mk-modal-header-info {
+    align-items: center;
+  }
+
+  .mk-modal-header-info .mk-name {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .mk-modal-header-info .mk-modal-header-meta {
+    justify-content: center;
+    gap: 10px 16px;
+    font-size: 0.8rem;
+  }
+
+  .mk-modal-body {
+    padding: 20px;
+  }
+
+  .mk-modal-about-meta {
+    gap: 15px;
+  }
+
+  .mk-modal-pooja-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 16px;
+  }
+
+  .mk-modal-pooja-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mk-pooja-card-meta {
+    justify-content: center;
+  }
+
+  .mk-modal-pooja-action {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed rgba(255, 126, 54, 0.15);
+    padding-top: 12px;
+    width: 100%;
+  }
+
+  .mk-modal-right {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+/* Empty State */
+.mk-empty-state {
+  text-align: center;
+  padding: 40px;
+  background: var(--mk-beige);
+  border-radius: var(--mk-radius);
+  border: 2px dashed var(--mk-border);
+}

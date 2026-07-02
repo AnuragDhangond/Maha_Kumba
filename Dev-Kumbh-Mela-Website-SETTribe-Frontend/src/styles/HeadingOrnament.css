@@ -1,0 +1,32 @@
+.heading-ornament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px auto 24px;
+    width: 100%;
+    max-width: 300px;
+    color: var(--lp-primary, #ff7e36);
+}
+
+.heading-ornament svg {
+    width: 100%;
+    height: auto;
+    max-height: 40px;
+    opacity: 0.85;
+    filter: drop-shadow(0 2px 4px rgba(255, 126, 54, 0.2));
+}
+
+@media (max-width: 600px) {
+    .heading-ornament {
+        max-width: 200px;
+        margin: 6px auto 16px;
+    }
+}
+
+.ornament-icon-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    margin: 0 15px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}

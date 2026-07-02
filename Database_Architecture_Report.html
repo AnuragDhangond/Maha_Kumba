@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Architecture Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a237e;
+            border-bottom: 3px solid #3f51b5;
+            padding-bottom: 15px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #283593;
+            margin-top: 40px;
+            border-bottom: 2px solid #e8eaf6;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #3949ab;
+            margin-top: 25px;
+            background-color: #e8eaf6;
+            padding: 8px 15px;
+            border-radius: 6px;
+        }
+
+        p,
+        li {
+            font-size: 16px;
+        }
+
+        ul {
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: #c62828;
+        }
+
+        code {
+            background-color: #ffebee;
+            color: #b71c1c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+
+        .script-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .qna-box {
+            background-color: #f5f5f5;
+            border-left: 5px solid #43a047;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .qna-box strong {
+            color: #2e7d32;
+            font-size: 17px;
+        }
+
+        .qna-box blockquote {
+            margin: 12px 0 0 0;
+            font-style: italic;
+            color: #424242;
+            border-left: 3px solid #bdbdbd;
+            padding-left: 15px;
+        }
+
+        .mermaid-container {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0;
+            }
+
+            .mermaid-container {
+                page-break-inside: avoid;
+            }
+
+            .script-box,
+            .qna-box {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Maha Kumbh Mela - Database Architecture & System Flow</h1>
+
+        <h2>1. Database Tables & Logical Modules</h2>
+        <p>Based on the Spring Boot backend (<code>@Entity</code> and <code>@ElementCollection</code>), the application
+            automatically generates <strong>29 tables</strong>. They are grouped into the following logical modules:</p>
+
+        <h3>A. User & Authentication Module</h3>
+        <ul>
+            <li><strong>users</strong>: Central user table storing credentials, roles, and status.</li>
+            <li><strong>access_tokens</strong>: Stores short-lived JWT tokens. <em>Relationship: OneToOne with
+                    users.</em></li>
+            <li><strong>refresh_tokens</strong>: Stores long-lived tokens for session renewal. <em>Relationship:
+                    OneToOne with users.</em></li>
+            <li><strong>user_activity</strong>: Audit table logging user IP, visited pages, and session duration.</li>
+        </ul>
+
+        <h3>B. E-commerce & Souvenir Shop</h3>
+        <ul>
+            <li><strong>products</strong>: Inventory of items available for purchase (price, stock).</li>
+            <li><strong>carts</strong>: Active shopping cart for a user. <em>Relationship: OneToOne with users.</em>
+            </li>
+            <li><strong>cart_items</strong>: Line items inside a cart. <em>Relationship: ManyToOne with carts &
+                    products.</em></li>
+            <li><strong>shop_orders</strong>: Finalized purchases. <em>Relationship: ManyToOne with users.</em></li>
+            <li><strong>order_items</strong>: Line items inside an order. <em>Relationship: ManyToOne with shop_orders &
+                    products.</em></li>
+            <li><strong>delivery_tracking</strong>: Live tracking status of an order. <em>Relationship: OneToOne with
+                    shop_orders.</em></li>
+        </ul>
+
+        <h3>C. Spiritual & Cultural Services</h3>
+        <ul>
+            <li><strong>acharyas</strong>: Profiles of priests/scholars.</li>
+            <li><strong>acharya_poojas</strong>: Specific pooja services offered by priests. <em>Relationship: ManyToOne
+                    with acharyas.</em></li>
+            <li><strong>pooja_schedules</strong>: Global daily schedule of main rituals.</li>
+            <li><strong>saints_directory</strong>: Directory of saints and Akhadas.</li>
+            <li><strong>spiritual_places</strong>: Holy locations with coordinates and info.</li>
+            <li><strong>heritage_history</strong> & <strong>kumbh_highlights</strong>: Static content for the
+                informational portal.</li>
+            <li><strong>artisans</strong>: Profiles of local craftsmen.</li>
+        </ul>
+
+        <h3>D. Stay & Accommodation</h3>
+        <ul>
+            <li><strong>stays</strong>: Lodging options (tents, ashrams) with pricing and ratings.</li>
+            <li><strong>stay_features</strong>: A dynamically generated collection table storing amenities (Wi-Fi, AC)
+                for stays. <em>Relationship: ManyToOne with stays (via @ElementCollection).</em></li>
+        </ul>
+
+        <h3>E. Public Services & Emergency (Smart City Operations)</h3>
+        <ul>
+            <li><strong>live_updates</strong>: Broadcasts for general public info and essential services.</li>
+            <li><strong>live_darshans</strong>: Streams and YouTube links for online viewing.</li>
+            <li><strong>emergency_alerts</strong>: Geo-tagged SOS alerts raised by users (Pending/Accepted/Resolved).
+            </li>
+            <li><strong>hospitals</strong> & <strong>helplines</strong>: Directory of medical centers and emergency
+                contacts.</li>
+            <li><strong>health_tips</strong>: General health advisories for pilgrims.</li>
+            <li><strong>crowd_status</strong>: Real-time tracking of crowd density (GREEN/YELLOW/RED) at specific
+                coordinates.</li>
+        </ul>
+
+        <h3>F. Donations Module</h3>
+        <ul>
+            <li><strong>donation_transactions</strong>: Records of user contributions, amounts, and payment references.
+            </li>
+            <li><strong>donation_configs</strong>: Admin-controlled UI configuration (UPI ID, target amounts, hero text)
+                for the donation page.</li>
+        </ul>
+
+        <h2>2. Complete Database ER Diagram</h2>
+        <p><em>(Diagram generated dynamically below)</em></p>
+        <div class="mermaid-container">
+            <div class="mermaid">
+                erDiagram
+                %% Auth & User Module
+                users {
+                int id PK
+                string email UK
+                string password
+                string role
+                boolean is_active
+                }
+                access_tokens {
+                long id PK
+                string token UK
+                long user_id FK
+                }
+                refresh_tokens {
+                long id PK
+                string token UK
+                long user_id FK
+                }
+                user_activity {
+                long id PK
+                string ip_address
+                string page_visited
+                }
+
+                %% E-Commerce Module
+                products {
+                long id PK
+                string product_name
+                decimal price
+                int stock_quantity
+                }
+                carts {
+                long id PK
+                long user_id FK
+                }
+                cart_items {
+                long id PK
+                int quantity
+                long cart_id FK
+                long product_id FK
+                }
+                shop_orders {
+                long id PK
+                string order_number UK
+                decimal total_amount
+                string order_status
+                long user_id FK
+                }
+                order_items {
+                long id PK
+                int quantity
+                decimal price
+                long order_id FK
+                long product_id FK
+                }
+                delivery_tracking {
+                long id PK
+                string current_status
+                long order_id FK
+                }
+
+                %% Spiritual Module
+                acharyas {
+                long id PK
+                string name
+                string specialty
+                }
+                acharya_poojas {
+                long id PK
+                string name
+                double price
+                long acharya_id FK
+                }
+
+                %% Stays Module
+                stays {
+                long id PK
+                string title
+                double rating
+                long price
+                }
+                stay_features {
+                long stay_id FK
+                string feature
+                }
+
+                %% Relationships
+                users ||--o| access_tokens : "1:1 has"
+                users ||--o| refresh_tokens : "1:1 has"
+                users ||--o| carts : "1:1 has"
+                users ||--o{ shop_orders : "1:N places"
+
+                carts ||--o{ cart_items : "1:N contains"
+                products ||--o{ cart_items : "1:N added to"
+
+                shop_orders ||--o{ order_items : "1:N contains"
+                products ||--o{ order_items : "1:N bought as"
+                shop_orders ||--o| delivery_tracking : "1:1 tracked via"
+
+                acharyas ||--o{ acharya_poojas : "1:N offers"
+
+                stays ||--o{ stay_features : "1:N has"
+
+                %% Standalone / Other Tables
+                live_updates { long id PK string category }
+                live_darshans { long id PK string link }
+                emergency_alerts { long id PK string status string priority }
+                hospitals { long id PK double lat double lng }
+                helplines { long id PK string number }
+                health_tips { long id PK string category }
+                crowd_status { long id PK string crowd_level }
+                donation_transactions { long id PK string status }
+                donation_configs { long id PK string upi_id }
+                pooja_schedules { long id PK string deity }
+                saints_directory { long id PK string name }
+                spiritual_places { long id PK string place_name }
+                artisans { long id PK string craft }
+                heritage_history { long id PK string title }
+                kumbh_highlights { long id PK string year }
+            </div>
+        </div>
+
+        <h2>3. System Data Flow</h2>
+        <ul>
+            <li><strong>Authentication Flow</strong>: When a user registers/logs in, a <code>User</code> record is
+                created/verified. The system generates an <code>AccessToken</code> and <code>RefreshToken</code>, saving
+                them to the database mapping back to the <code>user_id</code>. When the access token expires, the client
+                sends the refresh token to get a new access pair without requiring credentials.</li>
+            <li><strong>E-commerce Flow</strong>:
+                <ol>
+                    <li>A user browses <code>products</code> and adds items.</li>
+                    <li>The system locates the user's <code>Cart</code> (or creates a 1:1 cart) and inserts
+                        <code>cart_items</code> referencing the cart and product.</li>
+                    <li>Upon checkout, a <code>ShopOrder</code> is generated. <code>cart_items</code> are migrated to
+                        <code>order_items</code> with a snapshot of the price. The cart is cleared.</li>
+                    <li>A <code>DeliveryTracking</code> record is linked 1:1 to the new <code>ShopOrder</code> for admin
+                        dispatch updates.</li>
+                </ol>
+            </li>
+            <li><strong>Donation Flow</strong>: The frontend fetches <code>DonationConfig</code> to dynamically render
+                UPI details and preset amounts. User submits payment, creating a <code>DonationTransaction</code>.
+                Admins later reconcile the "PENDING" status to "SUCCESS".</li>
+            <li><strong>Stay Booking Flow</strong>: Users view <code>Stays</code>. The <code>stay_features</code> table
+                is joined automatically by JPA to retrieve amenities (Wi-Fi, Meals).</li>
+            <li><strong>Command Center Flow</strong>: The mobile app triggers an <code>EmergencyAlert</code> with GPS
+                coordinates. The Admin/Operator dashboard polls this table. Once an operator clicks "Accept", the
+                <code>status</code> changes from Pending to Accepted, updating the <code>accepted_by</code> field.</li>
+        </ul>
+
+        <h2>4. Special Technical Highlights</h2>
+        <ul>
+            <li><strong>@ElementCollection vs @OneToMany</strong>: Instead of creating a separate full-blown Feature
+                Entity to manage stay amenities, the project uses <code>@ElementCollection</code> in
+                <code>Stay.java</code>. This creates the <code>stay_features</code> mapping table efficiently without
+                the overhead of a separate primary key for the feature strings.</li>
+            <li><strong>ddl-auto=update Behavior</strong>: Configured in <code>application.properties</code>, this tells
+                Hibernate to compare the existing SQL schema with the Java <code>@Entity</code> classes on startup. It
+                automatically generates new tables (like our 29 tables) or adds missing columns dynamically, saving the
+                team from writing manual SQL DDL scripts.</li>
+            <li><strong>Database-Backed Token Auth</strong>: Instead of pure stateless JWTs, this project persists
+                <code>AccessToken</code> and <code>RefreshToken</code> entities. This is a highly secure design choice.
+                It allows the admin to instantly revoke a specific user's access by deleting the token record from the
+                database, which is impossible with standard stateless JWTs.</li>
+            <li><strong>BaseEntity Auditing</strong>: Most tables extend <code>BaseEntity</code>, utilizing Spring Data
+                JPA's <code>@EntityListeners(AuditingEntityListener.class)</code>. This automatically injects
+                <code>createdAt</code> and <code>updatedAt</code> timestamps on every insert and update across the
+                system.</li>
+        </ul>
+
+        <h2>5. Presentation Script (2-3 Minutes)</h2>
+        <div class="script-box">
+            <p><strong>"Good morning, respected Professor and panel.</strong></p>
+            <p>Our Full-Stack Maha Kumbh Mela project utilizes a highly relational and dynamic database architecture
+                powered by Spring Boot Data JPA and MySQL. The system autonomously manages <strong>29 distinct
+                    tables</strong>, generated directly from our backend Entity mappings using Hibernate's DDL update
+                strategy.</p>
+            <p>To ensure separation of concerns, our schema is divided into 6 core modules: Authentication, E-commerce,
+                Spiritual Services, Accommodation, Smart City Public Services, and Donations.</p>
+            <p>Let's look at the core relationships: Our security relies on a database-backed token system. A
+                <code>User</code> has a strict one-to-one relationship with <code>AccessToken</code> and
+                <code>RefreshToken</code> tables, allowing us to implement forced session revocations—a critical
+                security feature for a high-traffic app.</p>
+            <p>For the E-commerce shop, we designed a robust checkout flow. A <code>User</code> maps one-to-one to a
+                <code>Cart</code>, which holds one-to-many <code>CartItems</code>. Upon purchase, this transforms into a
+                <code>ShopOrder</code>, linking one-to-many <code>OrderItems</code>, and triggering a one-to-one
+                <code>DeliveryTracking</code> record. This guarantees data integrity so that past order prices aren't
+                affected if the main <code>Product</code> price changes.</p>
+            <p>We also utilized advanced JPA features to optimize performance. For example, instead of creating a heavy
+                entity for hotel amenities, our <code>Stay</code> entity uses an <code>@ElementCollection</code>. This
+                seamlessly generates a lightweight <code>stay_features</code> mapping table managed entirely by
+                Hibernate.</p>
+            <p>Finally, our Smart City module handles real-time <code>CrowdStatus</code> and
+                <code>EmergencyAlerts</code> with geospatial coordinates, proving that our database isn't just for
+                static data, but acts as the backbone for live operational dashboards.</p>
+            <p>Thank you, we are now open for any technical questions regarding the schema."</p>
+        </div>
+
+        <h2>6. Viva Questions & Strong Answers</h2>
+
+        <div class="qna-box">
+            <p><strong>Q1: Why did you use spring.jpa.hibernate.ddl-auto=update? Is it safe for production?</strong></p>
+            <blockquote>"We used <code>update</code> to accelerate development, as Hibernate automatically syncs our
+                Java <code>@Entity</code> models to the MySQL schema. While excellent for prototyping and adding columns
+                on the fly without losing data, in a strict production environment, we would switch to a
+                version-controlled migration tool like Liquibase or Flyway to ensure deterministic and reversible schema
+                changes."</blockquote>
+        </div>
+
+        <div class="qna-box">
+            <p><strong>Q2: I see you have AccessToken and RefreshToken tables. Why store JWTs in the database? Doesn't
+                    that defeat the purpose of stateless JWTs?</strong></p>
+            <blockquote>"It is a deliberate security tradeoff. While JWTs are naturally stateless, storing them in the
+                DB allows us to implement 'Token Revocation' and 'Single Device Login'. If an admin spots malicious
+                activity, or a user logs out, we simply delete the token record. The backend intercepts the next
+                request, checks the DB, and rejects the valid JWT—giving us stateful control over stateless tokens."
+            </blockquote>
+        </div>
+
+        <div class="qna-box">
+            <p><strong>Q3: How are the amenities for the Stays (like Wi-Fi, AC) stored? I don't see a Feature
+                    entity.</strong></p>
+            <blockquote>"We implemented an <code>@ElementCollection</code> in the <code>Stay</code> class. This tells
+                Hibernate to automatically create a separate <code>stay_features</code> table containing a
+                <code>stay_id</code> foreign key and the feature string. It's much lighter and faster than creating a
+                full <code>@Entity</code> for simple lists of strings, reducing unnecessary table joins."</blockquote>
+        </div>
+
+        <div class="qna-box">
+            <p><strong>Q4: How does your database track when a record was created or modified?</strong></p>
+            <blockquote>"Instead of writing redundant code in 28 files, we created an abstract <code>BaseEntity</code>
+                mapped superclass. It uses Spring Data JPA's <code>@EntityListeners(AuditingEntityListener.class)</code>
+                along with <code>@CreatedDate</code> and <code>@LastModifiedDate</code> annotations. Every entity that
+                extends <code>BaseEntity</code> automatically receives and auto-updates the <code>created_at</code> and
+                <code>updated_at</code> timestamps seamlessly."</blockquote>
+        </div>
+
+        <div class="qna-box">
+            <p><strong>Q5: In your E-commerce flow, how do you handle the situation where an item's price changes after
+                    a user has bought it? Will their old order show the new price?</strong></p>
+            <blockquote>"No, it won't. When a cart is checked out, we migrate <code>CartItem</code> data into
+                <code>OrderItem</code>. The <code>OrderItem</code> table explicitly copies and stores the
+                <code>price</code> at the moment of checkout. It holds a ManyToOne relationship with
+                <code>ShopOrder</code>, acting as an immutable historical record, protecting past orders from future
+                <code>Product</code> price fluctuations."</blockquote>
+        </div>
+
+    </div>
+
+    <!-- Mermaid JS for rendering the diagram -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+
+</html>

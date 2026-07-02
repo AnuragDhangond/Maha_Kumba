@@ -1,0 +1,60 @@
+    @import url('./LoginPage.css');
+    /* RegisterPage.css */
+
+    .lp-root.rp-root {
+        height: auto !important;
+        min-height: 100vh;
+        overflow-y: auto !important;
+        padding-bottom: 2rem;
+    }
+
+    .rp-form-override {
+        padding: 14px 32px 14px !important;
+        gap: 12px;
+    }
+
+    .rp-grid-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .rp-full-width {
+        grid-column: 1 / -1;
+    }
+
+    @media (max-width: 600px) {
+        .rp-grid-form {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Bootstrap-style Validation */
+    .lp-field.is-invalid .lp-underline {
+        background: #dc3545 !important;
+        opacity: 0.8;
+    }
+
+    .lp-field.is-invalid .lp-lbl {
+        color: #dc3545 !important;
+    }
+
+    .lp-field.is-invalid input {
+        border-bottom-color: #dc354566 !important;
+    }
+
+    .invalid-feedback-sacred {
+        color: #dc3545;
+        font-size: 0.75rem;
+        font-weight: 500;
+        margin-top: 4px;
+        padding-left: 4px;
+        animation: lpFadeIn 0.3s ease-out;
+        font-family: inherit;
+        letter-spacing: 0.01em;
+    }
+
+    @keyframes lpFadeIn {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
