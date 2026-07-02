@@ -105,6 +105,7 @@ const LandingPage = () => {
         window.addEventListener('langchange', handleLangChange);
         return () => window.removeEventListener('langchange', handleLangChange);
     }, []);
+    // 1. One-time setup: scroll observer, gallery loading, reveal animations
     useEffect(() => {
         const scrollObserver = new IntersectionObserver(
             ([entry]) => {
@@ -114,6 +115,32 @@ const LandingPage = () => {
         );
         const sentinel = document.getElementById('scroll-sentinel');
         if (sentinel) scrollObserver.observe(sentinel);
+
+        // Simulate gallery loading
+        const timer = setTimeout(() => {
+            setIsGalleryLoading(false);
+        }, 2000);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        revealElements.forEach((el) => observer.observe(el));
+
+        return () => {
+            if (sentinel) scrollObserver.disconnect();
+            clearTimeout(timer);
+            observer.disconnect();
+        };
+    }, []);
+
+    // 2. Click-outside handler (depends on langMenuOpen and isProfileOpen)
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (langMenuOpen && !event.target.closest('.lang-select-container')) {
                 setLangMenuOpen(false);
@@ -122,11 +149,14 @@ const LandingPage = () => {
                 setIsProfileOpen(false);
             }
         };
-        // Countdown Timer Logic
+        window.addEventListener('mousedown', handleClickOutside, { passive: true });
+        return () => window.removeEventListener('mousedown', handleClickOutside);
+    }, [langMenuOpen, isProfileOpen]);
+
+    // 3. Countdown timer (runs once, independent of any state)
+    useEffect(() => {
         const timerInterval = setInterval(() => {
             const now = new Date().getTime();
-            // In a real app, this would use actual event timestamps
-            // Simulating countdown for 'Starting Soon' items
             const mockTarget = new Date().setHours(new Date().getHours() + 2, 45, 0, 0);
             const distance = mockTarget - now;
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -138,36 +168,18 @@ const LandingPage = () => {
                 s: seconds.toString().padStart(2, '0')
             });
         }, 1000);
-        window.addEventListener('mousedown', handleClickOutside, { passive: true });
-        // Simulate gallery loading
-        const timer = setTimeout(() => {
-            setIsGalleryLoading(false);
-        }, 2000);
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        revealElements.forEach((el) => observer.observe(el));
-        return () => {
-            if (sentinel) scrollObserver.disconnect();
-            window.removeEventListener('mousedown', handleClickOutside);
-            clearTimeout(timer);
-            clearInterval(timerInterval);
-            observer.disconnect();
-        };
-    }, [langMenuOpen]);
-    // Background Image Carousel Interval (6 seconds)
+        return () => clearInterval(timerInterval);
+    }, []);
+
+    // Background Image Carousel Interval (6 seconds, runs once)
     useEffect(() => {
+        const HERO_COUNT = 5;
         const bgInterval = setInterval(() => {
-            setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+            setCurrentHeroImage((prev) => (prev + 1) % HERO_COUNT);
         }, 6000);
         return () => clearInterval(bgInterval);
-    }, [heroImages.length]);
+    }, []);
+
     const [liveEvents, setLiveEvents] = useState([]);
     const [featuredEvents, setFeaturedEvents] = useState([]);
     const [homepageConfig, setHomepageConfig] = useState(null);
