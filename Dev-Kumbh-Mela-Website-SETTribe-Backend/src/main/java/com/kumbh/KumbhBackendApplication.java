@@ -25,9 +25,14 @@ public class KumbhBackendApplication {
             Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
             dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
 
-            System.out.println("DEBUG STARTUP: System.getenv(\"DB_URL\"): " + System.getenv("DB_URL"));
-            System.out.println("DEBUG STARTUP: System.getenv(\"DB_USERNAME\"): " + System.getenv("DB_USERNAME"));
-            System.out.println("DEBUG STARTUP: System.getenv(\"SPRING_PROFILES_ACTIVE\"): " + System.getenv("SPRING_PROFILES_ACTIVE"));
+            // Self-heal database environment variables by cleaning newlines and whitespace
+            cleanAndPromoteEnvVar("DB_URL");
+            cleanAndPromoteEnvVar("DB_USERNAME");
+            cleanAndPromoteEnvVar("DB_USER");
+            cleanAndPromoteEnvVar("DB_PASSWORD");
+            cleanAndPromoteEnvVar("DB_DRIVER");
+            cleanAndPromoteEnvVar("DB_DIALECT");
+            cleanAndPromoteEnvVar("SPRING_PROFILES_ACTIVE");
 
             // Check if DATABASE_URL is set (from Render or standard environments)
             String databaseUrl = System.getenv("DATABASE_URL");
@@ -71,6 +76,15 @@ public class KumbhBackendApplication {
             t.printStackTrace(System.err);
             System.err.flush();
             System.exit(1);
+        }
+    }
+
+    private static void cleanAndPromoteEnvVar(String key) {
+        String val = System.getenv(key);
+        if (val != null) {
+            val = val.replace("\n", "").replace("\r", "").trim();
+            System.setProperty(key, val);
+            System.out.println("DEBUG PROMOTED CLEANED " + key + ": " + val);
         }
     }
 }
