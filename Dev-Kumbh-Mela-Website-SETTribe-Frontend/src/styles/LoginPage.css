@@ -913,6 +913,7 @@
     max-height: none;
     min-height: 100vh;
     overflow-y: visible;
+    overflow-x: hidden;
   }
 
   .lp-grid {
