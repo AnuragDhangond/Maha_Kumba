@@ -29,32 +29,6 @@
     if (typeof global === 'undefined') {
       window.global = window;
     }
-    var BUILD_VERSION = 'v10 - 20:21 IST';
-    // Global crash inspector for mobile testing
-    window.onerror = function(message, source, lineno, colno, error) {
-      var div = document.createElement('div');
-      div.style.position = 'fixed';
-      div.style.top = '0';
-      div.style.left = '0';
-      div.style.width = '100vw';
-      div.style.height = '100vh';
-      div.style.backgroundColor = '#fff0f0';
-      div.style.color = '#b71c1c';
-      div.style.padding = '20px';
-      div.style.boxSizing = 'border-box';
-      div.style.zIndex = '9999999';
-      div.style.fontSize = '14px';
-      div.style.overflow = 'auto';
-      div.style.fontFamily = 'monospace';
-      div.innerHTML = '<h2 style="margin-top:0;color:green">BUILD: ' + BUILD_VERSION + '</h2>' +
-                      '<h3 style="color:#b71c1c">React Crashed</h3>' +
-                      '<p><b>Message:</b> ' + message + '</p>' +
-                      '<p><b>File:</b> ' + source + '</p>' +
-                      '<p><b>Line/Col:</b> ' + lineno + ':' + colno + '</p>' +
-                      '<p><b>Stack:</b><br><pre style="white-space:pre-wrap; font-size:12px;">' + (error && error.stack ? error.stack : 'No stack available') + '</pre></p>';
-      document.body.appendChild(div);
-      return false;
-    };
   </script>
 </head>
 
