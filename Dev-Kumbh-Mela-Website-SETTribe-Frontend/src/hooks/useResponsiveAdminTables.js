@@ -87,6 +87,7 @@ const useResponsiveAdminTables = () => {
 
   useEffect(() => {
     let frameId = null;
+    let observer = null;
     const rootNode = document.getElementById('root');
 
     const scheduleSync = () => {
@@ -95,16 +96,28 @@ const useResponsiveAdminTables = () => {
       }
 
       frameId = window.requestAnimationFrame(() => {
+        if (observer && rootNode) {
+          observer.disconnect();
+        }
+
         syncResponsiveAdminTables();
+
+        if (observer && rootNode) {
+          observer.observe(rootNode, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+          });
+        }
         frameId = null;
       });
     };
 
-    scheduleSync();
-
-    const observer = new MutationObserver(() => {
+    observer = new MutationObserver(() => {
       scheduleSync();
     });
+
+    scheduleSync();
 
     const handleRootClick = (event) => {
       const toggleButton = event.target.closest(TOGGLE_SELECTOR);
