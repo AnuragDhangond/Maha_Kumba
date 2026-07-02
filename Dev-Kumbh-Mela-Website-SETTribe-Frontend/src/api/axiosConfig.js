@@ -7,20 +7,46 @@ const axiosInstance = axios.create({
     withCredentials: true
 });
 
+// Request interceptor to attach JWT token to headers if present in localStorage
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 
 let refreshPromise = null;
 
 const refreshAuthToken = async () => {
     if (!refreshPromise) {
+        const storedRefreshToken = localStorage.getItem('refreshToken');
         refreshPromise = axios({
             method: 'post',
             url: `${API_URL}/users/refresh`,
             headers: { 'Content-Type': 'application/json' },
+            data: storedRefreshToken ? { refreshToken: storedRefreshToken } : null,
             withCredentials: true
         }).then((response) => {
+            const token = response.data?.token;
+            const newRefreshToken = response.data?.refreshToken;
+            if (token) {
+                localStorage.setItem('jwtToken', token);
+            }
+            if (newRefreshToken) {
+                localStorage.setItem('refreshToken', newRefreshToken);
+            }
             return response;
         }).catch((err) => {
             if (typeof window !== 'undefined') {
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('refreshToken');
                 window.dispatchEvent(new Event('auth-failed'));
             }
             throw err;

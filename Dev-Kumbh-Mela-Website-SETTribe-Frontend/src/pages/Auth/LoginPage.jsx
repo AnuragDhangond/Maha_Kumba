@@ -79,6 +79,15 @@ const LoginForm = ({ t, setActivePolicyModal }) => {
       setIsLoading(false);
 
       if (response.status === 200 || response.status === 201) {
+        const token = response.data?.token;
+        const refreshToken = response.data?.refreshToken;
+        if (token) {
+          localStorage.setItem('jwtToken', token);
+        }
+        if (refreshToken) {
+          localStorage.setItem('refreshToken', refreshToken);
+        }
+
         const currentUserResponse = await authService.getCurrentUser();
         const userData = login(currentUserResponse.data);
         

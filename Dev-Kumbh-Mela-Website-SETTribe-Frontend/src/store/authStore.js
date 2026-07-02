@@ -8,13 +8,6 @@ const useAuthStore = create((set, get) => ({
     isAdmin: false,
 
     checkAuth: async () => {
-        // Explicitly clear legacy storage keys to ensure migration to cookies
-        localStorage.removeItem('auth_session_active');
-        localStorage.removeItem('auth_user_data');
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
-
         try {
             const response = await authService.getCurrentUser();
             const userData = response.data;
@@ -55,7 +48,7 @@ const useAuthStore = create((set, get) => ({
         } catch (error) {
             console.error("Logout error", error);
         } finally {
-            localStorage.removeItem('token');
+            localStorage.removeItem('jwtToken');
             localStorage.removeItem('refreshToken');
             set({ user: null, isAuthenticated: false, isAdmin: false, loading: false });
         }
